@@ -10,7 +10,7 @@ let studentRoute = require('./routes/student');
 app.set('view engine','ejs');
 app.use(personsRoute);
 app.use(studentRoute);
-app.use('/assets', express.static(__dirname + '../public'));
+app.use('/assets', express.static(__dirname + '/public'));
 
 let PORT = process.env.PORT || 3000;
 //definición del puerto de escucha
