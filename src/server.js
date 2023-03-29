@@ -1,21 +1,24 @@
-let express = require('express');
-//inyeeción de la dependencia de express
-let app = express();
-//app que hace la función de servidor
-let personsRoute = require('./routes/person');
-let studentRoute = require('./routes/student');
-let addStudentRoute = require('./routes/addStudent');
-//incluimos el router que viene de personas
+let express = require('express'); 
 
+// Rutas
+let personsRoute = require('./routes/person');  // ruta de person
+let studentRoute = require('./routes/student'); // ruta de student
+let addStudentRoute = require('./routes/addStudent'); // ruta de addStudent
 
-app.set('view engine','ejs');
+let app = express(); // Definimos una variable para express
+let port = process.env.PORT || 3000;
+
+// Configuración
+app.use('/assets', express.static(__dirname + '/public'));
+app.set('view engine','ejs'); // Usamos el motor de vistas ejs para poder visualizar los views
+app.use(express.urlencoded({extended: false})) // Para indicar que vamos a parsear con elementos del body
+
+//Redirección
 app.use(personsRoute); // llamamos el router de person
 app.use(studentRoute); // llamamos el router de student
 app.use(addStudentRoute); // llamamos el router de addStudent
-app.use('/assets', express.static(__dirname + '/public'));
 
-let PORT = process.env.PORT || 3000;
-//definición del puerto de escucha
+let PORT = process.env.PORT || 3000; //definición del puerto de escucha
 
 app.listen(PORT,()=>{
     console.log('escuchando en el puerto 3000') // si funcionó la conexión imprimimos un mensaje en la consola
